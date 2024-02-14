@@ -1,7 +1,7 @@
 const Country = ({ randomCountry }) => {
   return (
     <div>
-      <img src={randomCountry.png} alt='flag'></img>
+      <img src={randomCountry.flagUrl} alt='flag' />
     </div>
   )
 
