@@ -1,11 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
 const urlAll = 'https://restcountries.com/v3.1/all'
-const urlName = 'https://restcountries.com/v3.1/name'
 
+//Retrieves all countries from the API and returns them to App in JSON-format 
 const getAllCountries = async () => {
   const request = await fetch(urlAll)
   const countries = await request.json()
-  console.log(countries)
 
   return countries
 }
