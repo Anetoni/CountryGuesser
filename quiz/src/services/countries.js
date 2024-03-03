@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-const urlAll = 'https://restcountries.com/v3.1/all'
+const urlAll = 'https://restcountries.com/v3.1/all?fields=name,flags'
 
 //Retrieves all countries from the API and returns them to App in JSON-format 
 const getAllCountries = async () => {
