@@ -1,12 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
-const urlAll = 'https://restcountries.com/v3.1/all?fields=name,flags'
+const url = 'https://countriesnow.space/api/v0.1/countries/info?returns=name,flag'
 
 //Retrieves all countries from the API and returns them to App in JSON-format 
 const getAllCountries = async () => {
-  const request = await fetch(urlAll)
+  const request = await fetch(url)
   const countries = await request.json()
 
-  return countries
+  return countries.data
 }
 
 export default { getAllCountries }
