@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import Country from './Country'
 
 const Quiz = ({ points, started, startQuiz, randomCountry, checkAnswer, userInput, handleInputChange }) => {
