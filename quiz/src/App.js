@@ -14,6 +14,7 @@ const App = () => {
   const [resultMessage, setResultMessage] = useState(null)
   const [resultType, setResultType] = useState(null)
   const [started, setStarted] = useState(false)
+  const [points, setPoints] = useState(0)
 
   useEffect(() => {
     countryService.getAllCountries().then(countries => {
@@ -31,28 +32,40 @@ const App = () => {
     console.log(randomCountry.name)
     if (userInput.toLowerCase() === randomCountry.name.toLowerCase()) {
       correctAnswer(event)
+    } else {
+      wrongAnswer(event)
     }
   }
 
-  const correctAnswer = (event) => {
-    const countriesWithoutCurrentCountry = countries.filter(country => country.name !== randomCountry.name)
-    setUserInput('')
-    setCountries(countriesWithoutCurrentCountry)
-    getRandomCountry(event)
-    setResultType('correct')
-    setResultMessage('Correct! You guessed ' + randomCountry.name)
+  const wrongAnswer = (event) => {
+    event.preventDefault()
+    console.log('wrong answer')
+    setResultType("wrong")
+    setResultMessage(`You guessed wrong! The correct answer was ${randomCountry.name}. You got  ${points} points.`)
     setTimeout(() => {
       setResultMessage(null)
     }, 5000)
   }
 
+  const correctAnswer = (event) => {
+    event.preventDefault()
+    const countriesWithoutCurrentCountry = countries.filter(country => country.name !== randomCountry.name)
+    setUserInput('')
+    setCountries(countriesWithoutCurrentCountry)
+    setPoints(points + 1)
+    setResultType('correct')
+    setResultMessage('Correct! You guessed ' + randomCountry.name)
+    setTimeout(() => {
+      getRandomCountry()
+      setResultMessage(null)
+    }, 3000)
+  }
+
   const handleInputChange = (event) => {
-    console.log('input changed')
     setUserInput(event.target.value)
   }
 
-  const getRandomCountry = (event) => {
-    event.preventDefault()
+  const getRandomCountry = () => {
     const newCountry = countries[Math.floor(Math.random() * countries.length)]
     console.log(newCountry)
     setRandomCountry({ name: newCountry.name.common, flagUrl: newCountry.flags.png })
@@ -69,7 +82,7 @@ const App = () => {
       <Routes>
         <Route path="/quiz" element={
           <div>
-            <Quiz started={started} startQuiz={startQuiz} randomCountry={randomCountry} checkAnswer={checkAnswer} userInput={userInput} handleInputChange={handleInputChange}/>
+            <Quiz points={points} started={started} startQuiz={startQuiz} randomCountry={randomCountry} checkAnswer={checkAnswer} userInput={userInput} handleInputChange={handleInputChange}/>
             <AnswerResult type={resultType} message={resultMessage}></AnswerResult>
           </div>
           } 
