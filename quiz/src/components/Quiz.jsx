@@ -1,6 +1,7 @@
+import { useEffect } from 'react'
 import Country from './Country'
 
-const Quiz = ({ started, startQuiz, randomCountry, checkAnswer, userInput, handleInputChange }) => {
+const Quiz = ({ points, started, startQuiz, randomCountry, checkAnswer, userInput, handleInputChange }) => {
 
   if (started) {
       return (
@@ -10,6 +11,7 @@ const Quiz = ({ started, startQuiz, randomCountry, checkAnswer, userInput, handl
             <input className="answer-input" type="text" placeholder="Guess the country" value={userInput} onChange={handleInputChange}></input>
             <button type="submit" className="submit-btn">Submit</button>
           </form>
+          <p>Points: {points}</p>
         </div>
       )
   } 
